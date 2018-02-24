@@ -7,7 +7,7 @@
 namespace App\Controller;
 
 use App\Managers\CurrencyManager;
-use OceanApplications\currencylayer\client;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,14 +19,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class CurrencyController extends Controller
 {
     /**
-     * @Route("/currency-conversion/create", name="post_currency_conversion", options={"expose" = true})
+     * @Route("/currency-conversions", name="post_currency_conversion", options={"expose" = true})
      * @param CurrencyManager $manager
+     * @Method("GET")
      * @return JsonResponse
      */
     public function indexAction(CurrencyManager $manager)
     {
         $apiKey = $this->getParameter('currency.api_key');
-        $currenyResult = $this->changeCurrency($apiKey);
+        $currenyResult = $manager->changeCurrency($apiKey);
         $currenyResult = $manager->getConvertedValues($currenyResult['quotes']['USDEUR'], $currenyResult['quotes']['USDCHF']);
         $manager->postCurrencyConversion($currenyResult[0], $currenyResult[1]);
         return new JsonResponse($currenyResult);
@@ -35,6 +36,7 @@ class CurrencyController extends Controller
     /**
      * @Route("/currencies", name="get_currency_values", options={"expose"= true})
      * @param CurrencyManager $manager
+     * @Method("GET")
      * @return JsonResponse
      */
     public function getCurrencyValues(CurrencyManager $manager)

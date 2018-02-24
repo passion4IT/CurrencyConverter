@@ -72,8 +72,8 @@ class CurrencyManager
      */
     public function getConvertedValues($euro, $franc):array
     {
-        $usdValue = 1/$euro;
-        $francValue = $franc/$euro;
+        $usdValue = sprintf('%0.6f', 1/$euro);
+        $francValue = sprintf('%0.6f', $franc/$euro);
         return [$usdValue, $francValue];
     }
 
