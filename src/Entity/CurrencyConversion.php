@@ -26,12 +26,12 @@ class CurrencyConversion
     private $euroAmount;
 
     /**
-     * @ORM\Column(name="dollar_equivalent", type="float", scale=6, nullable=false)
+     * @ORM\Column(name="dollar_equivalent", type="decimal", precision=7, scale=6, nullable=false)
      */
     private $dollarEquivalent;
 
     /**
-     * @ORM\Column(name="franc_equivalent", type="float", scale=6, nullable=false)
+     * @ORM\Column(name="franc_equivalent", type="decimal", precision=7, scale=6, nullable=false)
      */
     private $francEquivalent;
 
@@ -64,25 +64,25 @@ class CurrencyConversion
     }
 
     /**
-     * @return decimal
+     * @return string
      */
-    public function getEuroValue():int
+    public function getEuroValue():string
     {
         return $this->euroAmount;
     }
 
     /**
-     * @return double value
+     * @return string
      */
-    public function getUSDEquivalent():float
+    public function getUSDEquivalent():string
     {
         return $this->dollarEquivalent;
     }
 
     /**
-     * @return double value
+     * @return float
      */
-    public function getFrancEquivalent():float
+    public function getFrancEquivalent():string
     {
         return $this->francEquivalent;
     }

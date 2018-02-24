@@ -6,12 +6,10 @@
 
 namespace App\Controller;
 
-use App\Entity\CurrencyConversion;
 use App\Managers\CurrencyManager;
 use OceanApplications\currencylayer\client;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -22,6 +20,7 @@ class CurrencyController extends Controller
 {
     /**
      * @Route("/currency-conversion/create", name="post_currency_conversion", options={"expose" = true})
+     * @param CurrencyManager $manager
      * @return JsonResponse
      */
     public function indexAction(CurrencyManager $manager)
@@ -29,7 +28,8 @@ class CurrencyController extends Controller
         $apiKey = $this->getParameter('currency.api_key');
         $currencyLayer = new client($apiKey);
         $currenyResult = $this->changeCurrency($currencyLayer);
-        $manager->postCurrencyConversion($currenyResult['quotes']['USDEUR'], $currenyResult['quotes']['USDCHF']);
+        $currenyResult = $manager->getConvertedValues($currenyResult['quotes']['USDEUR'], $currenyResult['quotes']['USDCHF']);
+        $manager->postCurrencyConversion($currenyResult[0], $currenyResult[1]);
         return new JsonResponse($currenyResult);
     }
 

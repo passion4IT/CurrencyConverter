@@ -16,13 +16,13 @@ use Doctrine\Common\Persistence\ObjectManager;
 class CurrencyManager
 {
     /**
-     * @var EntityManager
+     * @var ObjectManager
      */
     private $em;
 
     /**
      * CurrencyManager constructor.
-     * @param EntityManager
+     * @param ObjectManager
      */
     public function __construct(ObjectManager $em)
     {
@@ -36,6 +36,7 @@ class CurrencyManager
     {
         $convertedValues = $this->em->getRepository(CurrencyConversion::class)->findAll();
         $valuesArray = [];
+        /** @var CurrencyConversion $value */
         foreach($convertedValues as $value) {
             $valuesArray[$value->getId()] = [
                 'euro'=> $value->getEuroValue(),
@@ -54,8 +55,24 @@ class CurrencyManager
      */
     public function postCurrencyConversion($usdValue, $francValue):void
     {
+        /** @var CurrencyConversion $currencyConversion */
         $currencyConversion = new CurrencyConversion(1, $usdValue, $francValue);
         $this->em->persist($currencyConversion);
         $this->em->flush();
+    }
+
+    /**
+     * @param $euro
+     * @param $franc
+     * @return array
+     * Currencylayer API only converts from USD to other currencies
+     * with free version
+     * this will convert euro to usd and franc
+     */
+    public function getConvertedValues($euro, $franc):array
+    {
+        $usdValue = 1/$euro;
+        $francValue = $franc/$euro;
+        return [$usdValue, $francValue];
     }
 }
