@@ -36,4 +36,8 @@ to change EURO to USD and FRANC currency values.
 - bcmath
 - cli
 
-most of these packages come by default with installation of php7.1.
+Most of these packages come by default with installation of php7.1
+
+#### Changes for tests:
+- In order to execute tests inside repo, change API_KEY of test under managers
+- Command to execute tests: `bin/phpunit`
