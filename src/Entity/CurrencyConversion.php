@@ -3,12 +3,10 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CurrencyConversionRepository")
- * @Serializer\ExclusionPolicy("all")
  */
 class CurrencyConversion
 {
@@ -19,25 +17,21 @@ class CurrencyConversion
      * @ORM\Column(type="string", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Doctrine\ORM\Id\UuidGenerator")
-     * @Serializer\Expose()
      */
     private $id;
 
     /**
      * @ORM\Column(name="euro", type="decimal", precision=1, nullable=false)
-     * @Serializer\Expose()
      */
     private $euroAmount;
 
     /**
      * @ORM\Column(name="dollar_equivalent", type="float", scale=6, nullable=false)
-     * @Serializer\Expose()
      */
     private $dollarEquivalent;
 
     /**
      * @ORM\Column(name="franc_equivalent", type="float", scale=6, nullable=false)
-     * @Serializer\Expose()
      */
     private $francEquivalent;
 
@@ -59,5 +53,45 @@ class CurrencyConversion
         $this->dollarEquivalent = $dollarEquivalent;
         $this->francEquivalent = $francEquivalent;
         $this->timestamp = new \DateTime();
+    }
+
+    /**
+     * @return Uuid
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return decimal
+     */
+    public function getEuroValue()
+    {
+        return $this->euroAmount;
+    }
+
+    /**
+     * @return double value
+     */
+    public function getUSDEquivalent()
+    {
+        return $this->dollarEquivalent;
+    }
+
+    /**
+     * @return double value
+     */
+    public function getFrancEquivalent()
+    {
+        return $this->francEquivalent;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getTimestamp()
+    {
+        return $this->timestamp;
     }
 }
