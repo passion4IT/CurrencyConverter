@@ -25,3 +25,15 @@ to change EURO to USD and FRANC currency values.
 
 ### Custom commands:
 - `app:resetdb:fetch:currency`: It will reset db and fetch currency values from API and save in db
+
+
+#### Note: make sure you have php7.1 extensions installed/enabled:
+- mbstring
+- zip
+- json
+- xml
+- imap
+- bcmath
+- cli
+
+most of these packages come by default with installation of php7.1.
