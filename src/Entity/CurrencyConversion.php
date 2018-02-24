@@ -58,7 +58,7 @@ class CurrencyConversion
     /**
      * @return Uuid
      */
-    public function getId():Uuid
+    public function getId():string
     {
         return $this->id;
     }
@@ -74,7 +74,7 @@ class CurrencyConversion
     /**
      * @return double value
      */
-    public function getUSDEquivalent():double
+    public function getUSDEquivalent():float
     {
         return $this->dollarEquivalent;
     }
@@ -82,7 +82,7 @@ class CurrencyConversion
     /**
      * @return double value
      */
-    public function getFrancEquivalent():double
+    public function getFrancEquivalent():float
     {
         return $this->francEquivalent;
     }

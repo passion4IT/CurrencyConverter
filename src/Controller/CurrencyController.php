@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CurrencyController extends Controller
 {
     /**
-     * @Route("/curreny-conversion/create", name="post_currency_conversion", options={"expose" = true})
+     * @Route("/currency-conversion/create", name="post_currency_conversion", options={"expose" = true})
      * @return JsonResponse
      */
     public function indexAction(CurrencyManager $manager)
