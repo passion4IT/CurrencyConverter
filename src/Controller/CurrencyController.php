@@ -26,23 +26,10 @@ class CurrencyController extends Controller
     public function indexAction(CurrencyManager $manager)
     {
         $apiKey = $this->getParameter('currency.api_key');
-        $currencyLayer = new client($apiKey);
-        $currenyResult = $this->changeCurrency($currencyLayer);
+        $currenyResult = $this->changeCurrency($apiKey);
         $currenyResult = $manager->getConvertedValues($currenyResult['quotes']['USDEUR'], $currenyResult['quotes']['USDCHF']);
         $manager->postCurrencyConversion($currenyResult[0], $currenyResult[1]);
         return new JsonResponse($currenyResult);
-    }
-
-    /**
-     * @param client $currencyLayer
-     * @return array
-     */
-    private function changeCurrency(client $currencyLayer)
-    {
-        $currenyResult = $currencyLayer
-            ->currencies('EUR,CHF')
-            ->live();
-        return $currenyResult;
     }
 
     /**

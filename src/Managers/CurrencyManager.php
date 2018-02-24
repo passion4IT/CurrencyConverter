@@ -8,6 +8,7 @@ namespace App\Managers;
 
 use App\Entity\CurrencyConversion;
 use Doctrine\Common\Persistence\ObjectManager;
+use OceanApplications\currencylayer\client;
 
 /**
  * Class CurrencyManager
@@ -75,4 +76,18 @@ class CurrencyManager
         $francValue = $franc/$euro;
         return [$usdValue, $francValue];
     }
+
+    /**
+     * @param client $currencyLayer
+     * @return array
+     */
+    public function changeCurrency($apiKey)
+    {
+        $currencyLayer = new client($apiKey);
+        $currenyResult = $currencyLayer
+            ->currencies('EUR,CHF')
+            ->live();
+        return $currenyResult;
+    }
+
 }

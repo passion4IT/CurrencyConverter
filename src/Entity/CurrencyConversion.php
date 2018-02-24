@@ -80,7 +80,7 @@ class CurrencyConversion
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getFrancEquivalent():string
     {
