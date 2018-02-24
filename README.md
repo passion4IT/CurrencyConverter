@@ -39,5 +39,6 @@ to change EURO to USD and FRANC currency values.
 Most of these packages come by default with installation of php7.1
 
 #### Changes for tests:
-- In order to execute tests inside repo, change API_KEY of test under managers
-- Command to execute tests: `bin/phpunit`
+- In order to execute tests inside repo
+    - execute command `bin/phpunit`
+    - change API_KEY for tests under managers
