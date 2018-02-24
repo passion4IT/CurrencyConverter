@@ -6,7 +6,7 @@
 
 namespace App\Command;
 
-use http\Exception\RuntimeException;
+use App\Traits\APITrait;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,6 +19,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class ResetDbAndFetchCurrencyCommand extends ContainerAwareCommand
 {
+    use APITrait;
+
    /**
      * Description of command
      */
@@ -31,10 +33,7 @@ class ResetDbAndFetchCurrencyCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $output->writeln(
-            ['Resetting database'],
-            ['============']
-        );
+        $io->title('This command will reset db, fetch data from API and save in db');
 
         //Drop existing database, if any
         $dropCommand = $this->getApplication()->find('doctrine:database:drop');
@@ -61,34 +60,9 @@ class ResetDbAndFetchCurrencyCommand extends ContainerAwareCommand
         //fetching data from currency layer API
         $apiKey = $this->getContainer()->getParameter('currency.api_key');
         $currencyManager = $this->getContainer()->get('app.currency_manager');
-        $currencyValues = $currencyManager->changeCurrency($apiKey);
+        $router = $this->getContainer()->get('router');
 
-        // throw exception if no values are returned from API
-        if(!$currencyValues) {
-            throw new RuntimeException('No data received from API');
-        }
-        $convertedValues = $currencyManager->getConvertedValues($currencyValues['quotes']['USDEUR'], $currencyValues['quotes']['USDCHF']);
-        $io->success('Currency Values received from API');
-        $io->table(
-            ['EUR', 'USD', 'FRANC'],
-            [
-                [1, sprintf('%0.6f',$convertedValues[0]), sprintf('%0.6f', $convertedValues[1])]
-            ]
-        );
-
-        $io->text('Saving currency values in db...');
-        $currencyManager->postCurrencyConversion(1, $convertedValues[0], $convertedValues[1]);
-        $io->success('Values saved successfully in db!');
-
-        // provided endpoint to fetch all values from db
-        $resourceUrl = $this->getContainer()->get('router')->generate('get_currency_values');
-        $io->writeln('To fetch all currency values from db, request resource at ');
-        $io->table(
-            ['Name of endpoint', 'Url'],
-            [
-                ['get_currency_values', $resourceUrl]
-            ]
-        );
-
+        //fetch data currency data from API and save in db
+        $this->fetchAndSave($io, $currencyManager, $apiKey, $router);
     }
 }
