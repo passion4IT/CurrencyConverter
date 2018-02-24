@@ -4,7 +4,7 @@ This application has been developed to test CurrencyLayer API
 to change EURO to USD and FRANC currency values.
 
 ### Following framework/tools have been used to achieve purpose of application
-- Symfony 3.4
+- Symfony 4.0
 - php 7.1
 - mysql 5.7
 - CurrencyLayer API (http://https://currencylayer.com/)
