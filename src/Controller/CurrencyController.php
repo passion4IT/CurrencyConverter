@@ -5,6 +5,7 @@
  */
 
 namespace App\Controller;
+use OceanApplications\currencylayer\client;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,6 +22,21 @@ class CurrencyController extends Controller
      */
     public function indexAction()
     {
-        return new JsonResponse(['response' => 'this is working']);
+        $apiKey = $this->getParameter('currency.api_key');
+        $currencyLayer = new client($apiKey);
+        $currenyResult = $this->changeCurrency($currencyLayer);
+        return new JsonResponse($currenyResult);
+    }
+
+    /**
+     * @param \OceanApplications\currencylayer\client $currencyLayer
+     * @return array
+     */
+    private function changeCurrency(client $currencyLayer)
+    {
+        $currenyResult = $currencyLayer
+            ->currencies('EUR,CHF')
+            ->live();
+        return $currenyResult;
     }
 }
