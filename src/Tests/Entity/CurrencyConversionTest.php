@@ -5,6 +5,10 @@ namespace App\Tests\Entity;
 use App\Entity\CurrencyConversion;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class CurrencyConversionTest
+ * @package App\Tests\Entity
+ */
 class CurrencyConversionTest extends TestCase
 {
     /**

@@ -13,18 +13,22 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+/**
+ * Class ResetDbAndFetchCurrencyCommand
+ * @package App\Command
+ */
 class ResetDbAndFetchCurrencyCommand extends ContainerAwareCommand
 {
    /**
      * Description of command
      */
-    public function configure()
+    protected function configure()
     {
         $this->setName('app:resetdb:fetch:currency')
              ->setDescription('Drop, create, update schema and saves new currency values');
     }
 
-    public function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
         $output->writeln(
@@ -61,7 +65,7 @@ class ResetDbAndFetchCurrencyCommand extends ContainerAwareCommand
 
         // throw exception if no values are returned from API
         if(!$currencyValues) {
-            throw new RuntimeException('API returns error');
+            throw new RuntimeException('No data received from API');
         }
         $convertedValues = $currencyManager->getConvertedValues($currencyValues['quotes']['USDEUR'], $currencyValues['quotes']['USDCHF']);
         $io->success('Currency Values received from API');

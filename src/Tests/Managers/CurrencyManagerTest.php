@@ -6,24 +6,16 @@ use App\Managers\CurrencyManager;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Class CurrencyManagerTest
+ * @package App\Tests\Managers
+ */
 class CurrencyManagerTest extends WebTestCase
 {
-    CONST API_KEY = 'CHANGE_API_KEY';
+    CONST API_KEY = 'aeea9284ad67cd1f98e6e01d1f3f1984';
 
     /** @var EntityManager */
     private $em;
-
-    /**
-     * access doctrine manager
-     */
-    protected function setUp()
-    {
-        $kernel = self::bootKernel();
-
-        $this->em = $kernel->getContainer()
-            ->get('doctrine')
-            ->getManager();
-    }
 
     /**
      * test getConvertedValues
@@ -44,5 +36,17 @@ class CurrencyManagerTest extends WebTestCase
         $jsonResults = $currencyManager->changeCurrency(self::API_KEY);
         $this->assertInternalType('array', $jsonResults);
         $this->assertArrayHasKey('source', $jsonResults);
+    }
+
+    /**
+     * access doctrine manager
+     */
+    protected function setUp()
+    {
+        $kernel = self::bootKernel();
+
+        $this->em = $kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
     }
 }
