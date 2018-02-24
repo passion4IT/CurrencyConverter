@@ -41,4 +41,4 @@ Most of these packages come by default with installation of php7.1
 #### Changes for tests:
 - In order to execute tests inside repo
     - execute command `bin/phpunit`
-    - change API_KEY for tests under managers
+- Tests are under src/Tests

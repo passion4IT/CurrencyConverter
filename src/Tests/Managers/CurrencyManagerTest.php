@@ -12,10 +12,12 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 class CurrencyManagerTest extends WebTestCase
 {
-    CONST API_KEY = 'aeea9284ad67cd1f98e6e01d1f3f1984';
 
     /** @var EntityManager */
     private $em;
+
+    /** @var string */
+    private $apiKey;
 
     /**
      * test getConvertedValues
@@ -33,7 +35,7 @@ class CurrencyManagerTest extends WebTestCase
     public function testChangeCurrency()
     {
         $currencyManager = new CurrencyManager($this->em);
-        $jsonResults = $currencyManager->changeCurrency(self::API_KEY);
+        $jsonResults = $currencyManager->changeCurrency($this->apiKey);
         $this->assertInternalType('array', $jsonResults);
         $this->assertArrayHasKey('source', $jsonResults);
     }
@@ -44,9 +46,9 @@ class CurrencyManagerTest extends WebTestCase
     protected function setUp()
     {
         $kernel = self::bootKernel();
-
         $this->em = $kernel->getContainer()
             ->get('doctrine')
             ->getManager();
+        $this->apiKey = $kernel->getContainer()->getParameter('currency.api_key');
     }
 }
