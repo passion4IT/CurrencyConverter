@@ -58,7 +58,7 @@ class CurrencyConversion
     /**
      * @return Uuid
      */
-    public function getId()
+    public function getId():Uuid
     {
         return $this->id;
     }
@@ -66,7 +66,7 @@ class CurrencyConversion
     /**
      * @return decimal
      */
-    public function getEuroValue()
+    public function getEuroValue():int
     {
         return $this->euroAmount;
     }
@@ -74,7 +74,7 @@ class CurrencyConversion
     /**
      * @return double value
      */
-    public function getUSDEquivalent()
+    public function getUSDEquivalent():double
     {
         return $this->dollarEquivalent;
     }
@@ -82,7 +82,7 @@ class CurrencyConversion
     /**
      * @return double value
      */
-    public function getFrancEquivalent()
+    public function getFrancEquivalent():double
     {
         return $this->francEquivalent;
     }
@@ -90,7 +90,7 @@ class CurrencyConversion
     /**
      * @return \DateTime
      */
-    public function getTimestamp()
+    public function getTimestamp():\DateTime
     {
         return $this->timestamp;
     }

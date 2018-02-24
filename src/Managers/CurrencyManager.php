@@ -32,7 +32,7 @@ class CurrencyManager
     /**
      * @return array
      */
-    public function getCurrencyConversions()
+    public function getCurrencyConversions():array
     {
         $convertedValues = $this->em->getRepository(CurrencyConversion::class)->findAll();
         $valuesArray = [];
@@ -46,5 +46,16 @@ class CurrencyManager
         }
 
         return $valuesArray;
+    }
+
+    /**
+     * @param $usdValue
+     * @param $francValue
+     */
+    public function postCurrencyConversion($usdValue, $francValue):void
+    {
+        $currencyConversion = new CurrencyConversion(1, $usdValue, $francValue);
+        $this->em->persist($currencyConversion);
+        $this->em->flush();
     }
 }

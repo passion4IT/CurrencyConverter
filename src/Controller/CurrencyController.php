@@ -21,18 +21,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class CurrencyController extends Controller
 {
     /**
-     * @Route("/", name="home_page", options={"expose" = true})
+     * @Route("/curreny-conversion/create", name="post_currency_conversion", options={"expose" = true})
      * @return JsonResponse
      */
-    public function indexAction()
+    public function indexAction(CurrencyManager $manager)
     {
         $apiKey = $this->getParameter('currency.api_key');
         $currencyLayer = new client($apiKey);
         $currenyResult = $this->changeCurrency($currencyLayer);
-        $currencyConversion = new CurrencyConversion(1, $currenyResult['quotes']['USDEUR'], $currenyResult['quotes']['USDCHF']);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($currencyConversion);
-        $em->flush();
+        $manager->postCurrencyConversion($currenyResult['quotes']['USDEUR'], $currenyResult['quotes']['USDCHF']);
         return new JsonResponse($currenyResult);
     }
 
