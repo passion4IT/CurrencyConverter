@@ -64,25 +64,25 @@ class CurrencyConversion
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getEuroValue():string
+    public function getEuroValue():int
     {
         return $this->euroAmount;
     }
 
     /**
-     * @return string
+     * @return
      */
-    public function getUSDEquivalent():string
+    public function getUSDEquivalent()
     {
         return $this->dollarEquivalent;
     }
 
     /**
-     * @return string
+     * @return
      */
-    public function getFrancEquivalent():string
+    public function getFrancEquivalent()
     {
         return $this->francEquivalent;
     }

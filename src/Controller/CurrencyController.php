@@ -10,6 +10,7 @@ use App\Managers\CurrencyManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -21,8 +22,9 @@ class CurrencyController extends Controller
     /**
      * @Route("/", name="home_page")
      * @Method("GET")
+     * @return Response
      */
-    public function indexAction()
+    public function indexAction():Response
     {
         return $this->render('index.html.twig');
     }
@@ -33,7 +35,7 @@ class CurrencyController extends Controller
      * @Method("GET")
      * @return JsonResponse
      */
-    public function getCurrencyFromAPI(CurrencyManager $manager)
+    public function getCurrencyFromAPI(CurrencyManager $manager):JsonResponse
     {
         $apiKey = $this->getParameter('currency.api_key');
         $currenyResult = $manager->changeCurrency($apiKey);
@@ -49,7 +51,7 @@ class CurrencyController extends Controller
      * @Method("GET")
      * @return JsonResponse
      */
-    public function getCurrencyValues(CurrencyManager $manager)
+    public function getCurrencyValues(CurrencyManager $manager):JsonResponse
     {
         $convertedValues = $manager->getCurrencyConversions();
         return new JsonResponse($convertedValues);

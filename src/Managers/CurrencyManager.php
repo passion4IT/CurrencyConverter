@@ -78,10 +78,10 @@ class CurrencyManager
     }
 
     /**
-     * @param client $currencyLayer
+     * @param $apiKey
      * @return array
      */
-    public function changeCurrency($apiKey)
+    public function changeCurrency($apiKey):array
     {
         $currencyLayer = new client($apiKey);
         $currenyResult = $currencyLayer
