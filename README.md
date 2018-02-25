@@ -42,3 +42,15 @@ Most of these packages come by default with installation of php7.1
 - In order to execute tests inside repo
     - execute command `bin/phpunit`
 - Tests are under src/Tests
+
+### Frontend view has been implemented to see list of rates with respective timestamps.
+following libraries/frameworks have been used:
+- Bootstrap 3.3.7
+- React 16.2.0
+- Sass (Css Preprocessor for styling)
+- Symfony/webpack-encore (webpack integrated component with Symfony)
+
+#### To setup frontend view, execute following scripts:
+- Install npm dependencies: `npm install`
+- Transpile jsx and sass: `npm run dev`
+- To enable watch : `npm run watch`

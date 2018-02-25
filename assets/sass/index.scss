@@ -1,0 +1,43 @@
+/**
+ * Sass for styling index page
+ * Author Amit Thakur @Thakuramit3@hotmail.com
+ */
+@import './_variables.scss';
+
+body {
+  background: $lightGray;
+  text-align: center;
+
+  .currencies-block {
+      background: $white;
+      margin: 10% 20%;
+      padding: 40px 40px 0px 40px;
+
+      h4 {
+        padding: 3%;
+        background: $lightGray;
+        text-decoration: underline;
+        margin: 0;
+      }
+
+      table {
+        tbody {
+          tr:nth-of-type(odd) {
+            background: $lightGreen
+          }
+        }
+
+
+        thead {
+          tr {
+            background: $white;
+
+            th {
+              text-align: center;
+            }
+          }
+        }
+      }
+
+  }
+}

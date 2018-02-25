@@ -35,7 +35,7 @@ class CurrencyManager
      */
     public function getCurrencyConversions():array
     {
-        $convertedValues = $this->em->getRepository(CurrencyConversion::class)->findAll();
+        $convertedValues = $this->em->getRepository(CurrencyConversion::class)->findBy([], ['timestamp' => 'DESC']);
         $valuesArray = [];
         /** @var CurrencyConversion $value */
         foreach($convertedValues as $value) {

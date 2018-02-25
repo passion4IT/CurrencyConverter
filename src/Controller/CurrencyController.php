@@ -19,18 +19,28 @@ use Symfony\Component\Routing\Annotation\Route;
 class CurrencyController extends Controller
 {
     /**
-     * @Route("/currency-conversions", name="post_currency_conversion", options={"expose" = true})
+     * @Route("/", name="home_page")
+     * @Method("GET")
+     */
+    public function indexAction()
+    {
+        return $this->render('index.html.twig');
+    }
+
+    /**
+     * @Route("/currency/conversion", name="fetch_new_rate", options={"expose" = true})
      * @param CurrencyManager $manager
      * @Method("GET")
      * @return JsonResponse
      */
-    public function indexAction(CurrencyManager $manager)
+    public function getCurrencyFromAPI(CurrencyManager $manager)
     {
         $apiKey = $this->getParameter('currency.api_key');
         $currenyResult = $manager->changeCurrency($apiKey);
         $currenyResult = $manager->getConvertedValues($currenyResult['quotes']['USDEUR'], $currenyResult['quotes']['USDCHF']);
         $manager->postCurrencyConversion($currenyResult[0], $currenyResult[1]);
-        return new JsonResponse($currenyResult);
+        $newRates = $manager->getCurrencyConversions();
+        return new JsonResponse($newRates);
     }
 
     /**

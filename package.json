@@ -9,5 +9,14 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production"
+    },
+    "dependencies": {
+        "ajv": "^6.1.1",
+        "axios": "^0.18.0",
+        "babel-preset-react": "^6.24.1",
+        "node-sass": "^4.7.2",
+        "react": "^16.2.0",
+        "react-dom": "^16.2.0",
+        "sass-loader": "^6.0.6"
     }
 }
