@@ -1,5 +1,5 @@
 # CurrencyConverter
-Chrencyconverter application with Symfony and CurrencyLayer API
+CurrencyConverter application with Symfony 4.0 and CurrencyLayer API.
 This application has been developed to test CurrencyLayer API
 to change EURO to USD and FRANC currency values.
 

@@ -17,11 +17,10 @@ trait APITrait
      */
     public function fetchAndSave(SymfonyStyle $io, CurrencyManager $currencyManager, $apiKey, $router)
     {
-        $currencyValues = $currencyManager->changeCurrency($apiKey);
-
-        // throw exception if no values are returned from API
-        if(!$currencyValues) {
-            throw new \RuntimeException('No data received from API');
+        try {
+            $currencyValues = $currencyManager->changeCurrency($apiKey);
+        } catch(\RuntimeException $exception) {
+            throw new \RuntimeException($exception->getMessage());
         }
 
         $convertedValues = $currencyManager->getConvertedValues($currencyValues['quotes']['USDEUR'], $currencyValues['quotes']['USDCHF']);
