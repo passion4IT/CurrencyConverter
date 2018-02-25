@@ -18,7 +18,8 @@ to change EURO to USD and FRANC currency values.
 - Get the API key
 
 ### Use following scripts to execute the application
-- Add API key under parameters with key(currency.api_key):API_KEY
+- Add API key under parameters in config/packages/doctrine.yaml with key(currency.api_key):API_KEY
+- Configure DATABASE_URL in .env file
 - `composer install`
 - `bin/console s:r` or `bin/console server:run`
 - Access the application at localhost:8000
